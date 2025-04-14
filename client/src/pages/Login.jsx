@@ -29,17 +29,22 @@ export function Login() {
     }
   };
 
+  const registerHandler = (type) => {
+    const inputData = type === "sign-up" ? signupInput : loginInput;
+    console.log(inputData);
+  };
+
   return (
     <div className="flex  items-center justify-center h-screen bg-gray-100">
       <Tabs defaultValue="signup" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2 border b-2 border-b-slate-200">
-          <TabsTrigger value="signup">Sign-up</TabsTrigger>
+          <TabsTrigger value="signup">SignUp</TabsTrigger>
           <TabsTrigger value="login">Login</TabsTrigger>
         </TabsList>
         <TabsContent value="signup">
           <Card>
             <CardHeader>
-              <CardTitle>Signup</CardTitle>
+              <CardTitle>SignUp</CardTitle>
               <CardDescription>
                 Enter the detail's below to create an account and click signup
                 to continue.
@@ -78,7 +83,7 @@ export function Login() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Signup</Button>
+              <Button onClick={() => registerHandler("sign-up")}>Signup</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -114,7 +119,7 @@ export function Login() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Login</Button>
+              <Button onClick={() => registerHandler("login")}>Login</Button>
             </CardFooter>
           </Card>
         </TabsContent>

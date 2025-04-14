@@ -62,7 +62,7 @@ export function Login() {
                 />
               </div>
               <div className="space-y-1">
-                <Label>E-mail</Label>
+                <Label>electronic mail</Label>
                 <Input
                   type="email"
                   name="email"
@@ -97,7 +97,7 @@ export function Login() {
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="space-y-1">
-                <Label>E-mail</Label>
+                <Label>electronic mail</Label>
                 <Input
                   type="email"
                   placeholder="Ex. usman@gmail.com"
@@ -107,6 +107,7 @@ export function Login() {
                   value={loginInput.email}
                 />
               </div>
+
               <div className="space-y-1">
                 <Label>Password</Label>
                 <Input

@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
-
 export function Login() {
   const [loginInput, setLoginInput] = useState({ email: "", password: "" });
   const [signupInput, setSignupInput] = useState({
@@ -19,8 +18,7 @@ export function Login() {
     email: "",
     password: "",
   });
-
-  const changeInputHandler = (event, type) => {
+  const inputHandler = (event, type) => {
     const { name, value } = event.target;
     if (type === "sign-up") {
       setSignupInput((prev) => ({ ...prev, [name]: value }));
@@ -28,21 +26,17 @@ export function Login() {
       setLoginInput((prev) => ({ ...prev, [name]: value }));
     }
   };
-
   const handleSignupChange = (event) => {
-    changeInputHandler(event, "sign-up");
+    inputHandler(event, "sign-up");
   };
-
   const handleLoginChange = (event) => {
-    changeInputHandler(event, "login");
+    inputHandler(event, "login");
   };
-
   const buttonHandler = (x) => {
     //x is either "sign-up" or "login"
     const inputData = x === "sign-up" ? signupInput : loginInput;
     console.log(inputData);
   };
-
   return (
     <div className="flex  items-center justify-center h-screen bg-gray-100">
       <Tabs defaultValue="signup" className="w-[400px]">
@@ -137,5 +131,4 @@ export function Login() {
     </div>
   );
 }
-
 export default Login;

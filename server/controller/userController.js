@@ -1,6 +1,6 @@
 import { User } from "../models/User.js";
-import bcryptjs from "bcryptjs"; // Import bcryptjs for password hashing
-import jwt from "jsonwebtoken"; // Import jsonwebtoken for token generation
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const register = async (request, response) => {
   const { name, email, password } = request.body; // Destructure the request body to get name, email, and password

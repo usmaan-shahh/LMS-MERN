@@ -1,4 +1,4 @@
-import { User } from "../models/User";
+import { User } from "../models/User.js";
 import bcryptjs from "bcryptjs"; // Import bcryptjs for password hashing
 import jwt from "jsonwebtoken"; // Import jsonwebtoken for token generation
 

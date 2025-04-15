@@ -29,6 +29,14 @@ export function Login() {
     }
   };
 
+  const handleSignupChange = (event) => {
+    changeInputHandler(event, "sign-up");
+  };
+
+  const handleLoginChange = (event) => {
+    changeInputHandler(event, "login");
+  };
+
   const registerHandler = (type) => {
     const inputData = type === "sign-up" ? signupInput : loginInput;
     console.log(inputData);
@@ -58,7 +66,7 @@ export function Login() {
                   type="text"
                   required={true}
                   value={signupInput.name}
-                  onChange={(event) => changeInputHandler(event, "sign-up")}
+                  onChange={handleSignupChange}
                 />
               </div>
               <div className="space-y-1">
@@ -68,7 +76,7 @@ export function Login() {
                   name="email"
                   required={true}
                   value={signupInput.email}
-                  onChange={(event) => changeInputHandler(event, "sign-up")}
+                  onChange={handleSignupChange}
                 />
               </div>
               <div className="space-y-1">
@@ -78,7 +86,7 @@ export function Login() {
                   name="password"
                   required={true}
                   value={signupInput.password}
-                  onChange={(event) => changeInputHandler(event, "sign-up")}
+                  onChange={handleSignupChange}
                 />
               </div>
             </CardContent>
@@ -102,7 +110,7 @@ export function Login() {
                   type="email"
                   placeholder="Ex. usman@gmail.com"
                   required={true}
-                  onChange={(event) => changeInputHandler(event, "login")}
+                  onChange={handleLoginChange}
                   name="email"
                   value={loginInput.email}
                 />
@@ -113,7 +121,7 @@ export function Login() {
                 <Input
                   type="password"
                   required={true}
-                  onChange={(event) => changeInputHandler(event, "login")}
+                  onChange={handleLoginChange}
                   value={loginInput.password}
                   name="password"
                 />

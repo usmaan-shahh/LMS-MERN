@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "server": "nodemon server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

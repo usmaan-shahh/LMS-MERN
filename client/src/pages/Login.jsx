@@ -39,8 +39,8 @@ export function Login() {
 
   const buttonHandler = (x) => {
     //x is either "sign-up" or "login"
-    const y = x === "sign-up" ? signupInput : loginInput;
-    console.log(y);
+    const inputData = x === "sign-up" ? signupInput : loginInput;
+    console.log(inputData);
   };
 
   return (

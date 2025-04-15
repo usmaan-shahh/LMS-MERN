@@ -3,7 +3,7 @@ import bcryptjs from "bcryptjs"; // Import bcryptjs for password hashing
 import jwt from "jsonwebtoken"; // Import jsonwebtoken for token generation
 
 export const register = async (request, response) => {
-  const { name, email, password } = req.body; // Destructure the request body to get name, email, and password
+  const { name, email, password } = request.body; // Destructure the request body to get name, email, and password
 
   try {
     if (!name || !email || !password) {
@@ -34,8 +34,7 @@ export const register = async (request, response) => {
 
     response.status(201).json({
       success: true,
-      message: "User created successfully. Please verify your email.",
-      newUser: { ...newUser._doc, password: undefined }, //._doc Removes Mongoose metadata and returns a clean JavaScript object.
+      message: "User created successfully",
     });
   } catch (error) {
     return response
@@ -68,7 +67,7 @@ export const login = async (req, res) => {
     });
 
     // Set token as an HTTP-only cookie
-    response.cookie("authToken", token, {
+    res.cookie("authToken", token, {
       // "token" is the name of the cookie.
       // token is the value stored inside the cookie (usually a JWT token).
       httpOnly: true, // Prevent client-side access to the cookie
@@ -83,7 +82,6 @@ export const login = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Logged in successfully",
-      user: userData,
     });
   } catch (error) {
     console.error("Login error:", error);

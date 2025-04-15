@@ -37,9 +37,9 @@ export function Login() {
     changeInputHandler(event, "login");
   };
 
-  const registerHandler = (type) => {
-    const inputData = type === "sign-up" ? signupInput : loginInput;
-    console.log(inputData);
+  const buttonHandler = (x) => {
+    const y = x === "sign-up" ? signupInput : loginInput;
+    console.log(y);
   };
 
   return (
@@ -91,7 +91,7 @@ export function Login() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => registerHandler("sign-up")}>Signup</Button>
+              <Button onClick={() => buttonHandler("sign-up")}>Signup</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -128,7 +128,7 @@ export function Login() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => registerHandler("login")}>Login</Button>
+              <Button onClick={() => buttonHandler("login")}>Login</Button>
             </CardFooter>
           </Card>
         </TabsContent>

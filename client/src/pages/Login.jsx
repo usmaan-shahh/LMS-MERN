@@ -19,20 +19,24 @@ export function Login() {
     email: "",
     password: "",
   });
+
   const inputHandler = (event, type) => {
     const { name, value } = event.target;
     if (type === "sign-up") {
       setSignupInput((prev) => ({ ...prev, [name]: value }));
-    } else {
+    } else if (type === "login") {
       setLoginInput((prev) => ({ ...prev, [name]: value }));
     }
   };
+
   const handleSignupChange = (event) => {
     inputHandler(event, "sign-up");
   };
+
   const handleLoginChange = (event) => {
     inputHandler(event, "login");
   };
+
   const buttonHandler = (x) => {
     //x is either "sign-up" or "login"
     const inputData = x === "sign-up" ? signupInput : loginInput;

@@ -20,7 +20,6 @@ app.use(
     credentials: true,
   })
 );
-app.use("/api/auth", authRoute);
 
 app.listen(PORT, function () {
   console.log(`Server is running on ${PORT}`);

@@ -1,5 +1,6 @@
 import { User } from "../models/User";
 import bcryptjs from "bcryptjs"; // Import bcryptjs for password hashing
+import jwt from "jsonwebtoken"; // Import jsonwebtoken for token generation
 
 export const register = async (request, response) => {
   const { name, email, password } = req.body; // Destructure the request body to get name, email, and password
@@ -60,7 +61,25 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    //  Send success response
+    // Generate a JWT token if authentication is successful.
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      // The secret-key(JWT_SECRET) ensures that no one can change the payload without being caught.
+      expiresIn: "1d",
+    });
+
+    // Set token as an HTTP-only cookie
+    response.cookie("authToken", token, {
+      // "token" is the name of the cookie.
+      // token is the value stored inside the cookie (usually a JWT token).
+      httpOnly: true, // Prevent client-side access to the cookie
+      secure: false,
+      // secure: false allows cookies to be sent over HTTP (useful in development).
+      // secure: true enforces cookies to be sent only over HTTPS (for security in production).
+      sameSite: "strict", // Protect against CSRF attacks
+      maxAge: 24 * 60 * 1000, // Cookie expiration time (1 day)
+    });
+
+    // Send success response
     res.status(200).json({
       success: true,
       message: "Logged in successfully",
@@ -73,4 +92,6 @@ export const login = async (req, res) => {
       message: "Internal server error",
     });
   }
+  //  The secret key "your_secret_key" is used to sign (encrypt) the token.
+  //  Payload → Contains user data (id, email).
 };

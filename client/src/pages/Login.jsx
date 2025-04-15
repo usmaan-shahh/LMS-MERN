@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 export function Login() {
   const [loginInput, setLoginInput] = useState({ email: "", password: "" });
+
   const [signupInput, setSignupInput] = useState({
     name: "",
     email: "",

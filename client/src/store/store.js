@@ -9,3 +9,5 @@ const store = configureStore({
 });
 
 export default store;
+
+//The store is where the entire application state is held, but the state is organized into smaller, more manageable parts called slices.

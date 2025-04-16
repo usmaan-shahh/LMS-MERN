@@ -12,9 +12,9 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 export function Login() {
-  const [loginInput, setLoginInput] = useState({ email: "", password: "" });
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
 
-  const [signupInput, setSignupInput] = useState({
+  const [signupData, setSignupData] = useState({
     name: "",
     email: "",
     password: "",
@@ -23,23 +23,23 @@ export function Login() {
   const inputHandler = (event, type) => {
     const { name, value } = event.target;
     if (type === "sign-up") {
-      setSignupInput((prev) => ({ ...prev, [name]: value }));
+      setSignupData((prev) => ({ ...prev, [name]: value }));
     } else if (type === "login") {
-      setLoginInput((prev) => ({ ...prev, [name]: value }));
+      setLoginData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  const handleSignupChange = (event) => {
+  const handleSignupTabChange = (event) => {
     inputHandler(event, "sign-up");
   };
 
-  const handleLoginChange = (event) => {
+  const handleLoginTabChange = (event) => {
     inputHandler(event, "login");
   };
 
-  const buttonHandler = (x) => {
-    //x is either "sign-up" or "login"
-    const inputData = x === "sign-up" ? signupInput : loginInput;
+  const buttonHandler = (X) => {
+    //X is either "sign-up" or "login"
+    const inputData = X === "sign-up" ? signupData : loginData;
     console.log(inputData);
   };
   return (
@@ -65,8 +65,8 @@ export function Login() {
                   name="name"
                   type="text"
                   required={true}
-                  value={signupInput.name}
-                  onChange={handleSignupChange}
+                  value={signupData.name}
+                  onChange={handleSignupTabChange}
                 />
               </div>
               <div className="space-y-1">
@@ -75,8 +75,8 @@ export function Login() {
                   type="email"
                   name="email"
                   required={true}
-                  value={signupInput.email}
-                  onChange={handleSignupChange}
+                  value={signupData.email}
+                  onChange={handleSignupTabChange}
                 />
               </div>
               <div className="space-y-1">
@@ -85,8 +85,8 @@ export function Login() {
                   type="password"
                   name="password"
                   required={true}
-                  value={signupInput.password}
-                  onChange={handleSignupChange}
+                  value={signupData.password}
+                  onChange={handleSignupTabChange}
                 />
               </div>
             </CardContent>
@@ -110,9 +110,9 @@ export function Login() {
                   type="email"
                   placeholder="Ex. usman@gmail.com"
                   required={true}
-                  onChange={handleLoginChange}
+                  onChange={handleLoginTabChange}
                   name="email"
-                  value={loginInput.email}
+                  value={loginData.email}
                 />
               </div>
 
@@ -121,8 +121,8 @@ export function Login() {
                 <Input
                   type="password"
                   required={true}
-                  onChange={handleLoginChange}
-                  value={loginInput.password}
+                  onChange={handleLoginTabChange}
+                  value={loginData.password}
                   name="password"
                 />
               </div>

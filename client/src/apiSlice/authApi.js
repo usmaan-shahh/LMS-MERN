@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseQuery } from "../utils/baseQuery";
+import { userLoggedIn } from "../features/auth/authSlice"; // Make sure path is correct
 
 const authApi = createApi({
   reducerPath: "authApi",
@@ -21,6 +21,14 @@ const authApi = createApi({
         method: "POST",
         body: inputData,
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(userLoggedIn(data));
+        } catch (error) {
+          console.error("Error logging in user:", error);
+        }
+      },
     }),
   }),
 });

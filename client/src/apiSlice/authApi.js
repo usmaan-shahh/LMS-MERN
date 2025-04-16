@@ -21,6 +21,7 @@ const authApi = createApi({
         method: "POST",
         body: inputData,
       }),
+
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { result } = await queryFulfilled; //queryFulfilled → a promise that resolves with the API response when the request finishes

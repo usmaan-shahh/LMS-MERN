@@ -24,8 +24,8 @@ const authApi = createApi({
 
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
-          const { result } = await queryFulfilled; //queryFulfilled → a promise that resolves with the API response when the request finishes
-          dispatch(userLoggedIn({ user: result.data.user })); //dispatching the userLoggedIn action with the user data from the response
+          const result = await queryFulfilled;
+          dispatch(userLoggedIn({ user: result.data.newUser }));
         } catch (error) {
           console.error("Error logging in user:", error);
         }

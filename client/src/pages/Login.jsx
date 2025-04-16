@@ -16,7 +16,6 @@ import { useRegisterUserMutation } from "@/apiSlice/authApi";
 
 export function Login() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
-
   const [signupData, setSignupData] = useState({
     name: "",
     email: "",

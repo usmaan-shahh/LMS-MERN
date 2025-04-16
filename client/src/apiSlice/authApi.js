@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { userLoggedIn } from "../features/auth/authSlice"; // Make sure path is correct
+import { userLoggedIn } from "../slices/authSlice";
 
 const authApi = createApi({
   reducerPath: "authApi",
@@ -8,7 +8,7 @@ const authApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    login: builder.mutation({
+    loginUser: builder.mutation({
       query: (inputData) => ({
         url: "login",
         method: "POST",
@@ -23,8 +23,8 @@ const authApi = createApi({
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled;
-          dispatch(userLoggedIn(data));
+          const { result } = await queryFulfilled; //queryFulfilled → a promise that resolves with the API response when the request finishes
+          dispatch(userLoggedIn({ user: result.data.user })); //dispatching the userLoggedIn action with the user data from the response
         } catch (error) {
           console.error("Error logging in user:", error);
         }
@@ -33,5 +33,5 @@ const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterUserMutation } = authApi;
+export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
 export default authApi;

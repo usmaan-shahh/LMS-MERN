@@ -11,6 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
+import { useLoginUserMutation } from "@/apiSlice/authApi";
+import { useRegisterUserMutation } from "@/apiSlice/authApi";
+
 export function Login() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
 
@@ -19,6 +22,26 @@ export function Login() {
     email: "",
     password: "",
   });
+
+  const [
+    loginUser,
+    {
+      data: loginD,
+      error: loginError,
+      isLoading: loginIsLoading,
+      isSuccess: loginIsSuccess,
+    },
+  ] = useLoginUserMutation();
+
+  const [
+    registerUser,
+    {
+      data: registerData,
+      error: registerError,
+      isLoading: registerIsLoading,
+      isSuccess: registerIsSuccess,
+    },
+  ] = useRegisterUserMutation();
 
   const inputHandler = (event, type) => {
     const { name, value } = event.target;
@@ -37,10 +60,11 @@ export function Login() {
     inputHandler(event, "login");
   };
 
-  const buttonHandler = (X) => {
+  const buttonHandler = async (X) => {
     //X is either "sign-up" or "login"
     const inputData = X === "sign-up" ? signupData : loginData;
-    console.log(inputData);
+    const action = X === "sign-up" ? registerUser : loginUser;
+    await action(inputData);
   };
   return (
     <div className="flex  items-center justify-center h-screen bg-gray-100">

@@ -81,14 +81,7 @@ export function Login() {
     if (loginError) {
       toast.error(loginError.data.message);
     }
-  }, [
-    registerIsSuccess,
-    loginIsSuccess,
-    logindata,
-    loginError,
-    loginIsSuccess,
-    registerError,
-  ]);
+  }, [registerIsSuccess, loginIsSuccess, logindata, loginError, registerError]);
 
   return (
     <div className="flex  items-center justify-center h-screen bg-gray-100">

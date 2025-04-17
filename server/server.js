@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 const PORT = process.env.PORT;
 import userRoute from "./routes/userRoute.js";
+
 // Middleware to parse JSON request body
 app.use(express.json()); // express.json() converts incoming JSON data into a JavaScript object. It expects the incoming request to have a JSON body.
 
@@ -19,7 +20,6 @@ app.use(
     credentials: true,
   })
 );
-
 app.use("/api/v1/user", userRoute);
 
 app.listen(PORT, function () {

@@ -15,6 +15,7 @@ import { useLoginUserMutation } from "@/apiSlice/authApi";
 import { useRegisterUserMutation } from "@/apiSlice/authApi";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+
 export function Login() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [signupData, setSignupData] = useState({
@@ -86,9 +87,7 @@ export function Login() {
     logindata,
     loginError,
     loginIsSuccess,
-    loginIsLoading,
     registerError,
-    registerIsLoading,
   ]);
 
   return (

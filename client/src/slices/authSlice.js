@@ -6,15 +6,9 @@ const initialState = {
 };
 
 const authSlice = createSlice({
-
   name: "authSlice",
   initialState,
   reducers: {
-    
-    // Hey Redux! I want to log in this user: { id: 1, name: 'Alice' }"
-    // Redux Toolkit’s userLoggedIn action creator builds an action object:
-    // Redux sends this action object to the reducer
-
     userLoggedIn: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload.user;
@@ -34,3 +28,11 @@ const authSlice = createSlice({
 
 export const { userLoggedIn, userLoggedOut } = authSlice.actions;
 export default authSlice.reducer;
+
+//When you call dispatch(...), the action creator is called.
+
+//The action creator returns the action object.
+
+//Redux uses the type to run the correct reducer function.
+
+//The reducer updates the Redux state.

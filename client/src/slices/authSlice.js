@@ -15,6 +15,8 @@ const authSlice = createSlice({
     },
 
     // Redux Toolkit automatically creates action creators for the reducers you define.
+    // The action creator returns the action object.
+    // The action object has a type property and a payload property.
     userLoggedOut: (state) => {
       state.isAuthenticated = false;
       state.user = null;
@@ -24,11 +26,3 @@ const authSlice = createSlice({
 
 export const { userLoggedIn, userLoggedOut } = authSlice.actions;
 export default authSlice.reducer;
-
-//When you call dispatch(...), the action creator is called.
-
-//The action creator returns the action object.
-
-//Redux uses the type to run the correct reducer function.
-
-//The reducer updates the Redux state.

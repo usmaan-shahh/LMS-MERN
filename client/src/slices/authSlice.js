@@ -14,11 +14,7 @@ const authSlice = createSlice({
       state.user = action.payload.user;
     },
 
-    // Redux Toolkit automatically creates action creators for the reducers you define. The action creator for userLoggedIn will look like this:
-    // function userLoggedIn(user) {
-    //   return { type: "authSlice/userLoggedIn", payload: { user } };
-    // }
-
+    // Redux Toolkit automatically creates action creators for the reducers you define.
     userLoggedOut: (state) => {
       state.isAuthenticated = false;
       state.user = null;

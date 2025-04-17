@@ -47,7 +47,6 @@ const Navbar = () => {
               <Button>Sign-Up</Button>
             </div>
           )}
-         
         </div>
       </div>
     </div>

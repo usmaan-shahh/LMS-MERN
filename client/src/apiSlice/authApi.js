@@ -27,7 +27,6 @@ const authApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const result = await queryFulfilled;
-          console.log(result);
           dispatch(userLoggedIn({ user: result.data.newUser }));
         } catch (error) {
           console.error("Error logging in user:", error);

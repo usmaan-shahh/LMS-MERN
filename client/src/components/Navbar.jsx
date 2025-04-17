@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navbar = () => {
   const user = true;
@@ -23,21 +24,30 @@ const Navbar = () => {
         <div className="flex items-center gap-5">
           {user ? (
             <DropdownMenu>
-              <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>My Learning</DropdownMenuItem>
                 <DropdownMenuItem>Edit Profile</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <div className="flex items-center gap-5">
-              <Button>Login</Button>
+              <Button variant="outline">Login</Button>
               <Button>Sign-Up</Button>
             </div>
           )}
+         
         </div>
       </div>
     </div>

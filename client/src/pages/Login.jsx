@@ -43,7 +43,6 @@ export function Login() {
     /* code ends here */
   }
 
-  
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [signupData, setSignupData] = useState({
     name: "",
@@ -54,20 +53,20 @@ export function Login() {
   const [
     loginUser,
     {
-      data: logindata,
-      error: loginError,
-      isLoading: loginIsLoading,
-      isSuccess: loginIsSuccess,
+      data: loginUserData,
+      error: loginUserError,
+      isLoading: loginUserIsLoading,
+      isSuccess: loginUserIsSuccess,
     },
   ] = useLoginUserMutation();
 
   const [
     registerUser,
     {
-      data: registerData,
-      error: registerError,
-      isLoading: registerIsLoading,
-      isSuccess: registerIsSuccess,
+      data: registerUserData,
+      error: registerUserError,
+      isLoading: registerUserIsLoading,
+      isSuccess: registerUserIsSuccess,
     },
   ] = useRegisterUserMutation();
 
@@ -96,26 +95,26 @@ export function Login() {
   };
 
   useEffect(() => {
-    if (registerData && registerIsSuccess) {
+    if (registerUserData && registerIsSuccess) {
       toast.success("User registered successfully");
     }
-    if (loginIsSuccess && logindata) {
+    if (loginUserIsSuccess && loginUserData) {
       toast.success("User logged in successfully");
       navigate("/");
     }
-    if (registerError) {
-      toast.error(registerError.data.message);
+    if (registerUserError) {
+      toast.error(registerUserError.data.message);
     }
-    if (loginError) {
-      toast.error(loginError.data.message);
+    if (loginUserError) {
+      toast.error(loginUserError.data.message);
     }
   }, [
-    registerIsSuccess,
-    loginIsSuccess,
-    logindata,
-    loginError,
-    registerError,
-    registerData,
+    registerUserIsSuccess,
+    loginUserIsSuccess,
+    loginUserData,
+    loginUserError,
+    registerUserError,
+    registerUserData,
   ]);
 
   return (
@@ -175,11 +174,11 @@ export function Login() {
             </CardContent>
             <CardFooter className="pt-2">
               <Button
-                disabled={registerIsLoading}
+                disabled={registerUserIsLoading}
                 onClick={() => buttonHandler("sign-up")}
                 className="w-full h-11 font-medium"
               >
-                {registerIsLoading ? (
+                {registerUserIsLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Creating Account...
@@ -234,7 +233,7 @@ export function Login() {
                 onClick={() => buttonHandler("login")}
                 className="w-full h-11 font-medium"
               >
-                {loginIsLoading ? (
+                {loginUserIsLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Signing In...

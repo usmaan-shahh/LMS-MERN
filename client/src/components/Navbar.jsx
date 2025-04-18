@@ -1,4 +1,4 @@
-import { School } from "lucide-react";
+import { Menu, School } from "lucide-react";
 import React from "react";
 import {
   DropdownMenu,
@@ -11,8 +11,20 @@ import {
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Separator } from "@radix-ui/react-dropdown-menu";
+
 const Navbar = () => {
   const user = true;
+
   return (
     <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       {/* Desktop */}
@@ -49,8 +61,57 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
+      {/* Moble */}
+      <div className="flex md:hidden justify-between items-center gap-10 h-full px-4">
+        <div>
+          {/* <School size={30} /> */}
+          <h1 className="font-extrabold text-2xl">E-Learning</h1>
+        </div>
+        <MobileNavbar />
+      </div>
     </div>
   );
 };
 
 export default Navbar;
+
+const MobileNavbar = () => {
+  const role = "instructor";
+
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button
+          size="icon"
+          className="rounded-full bg-gray-200 hover:bg-gray-200"
+          variant="outline"
+        >
+          <Menu />
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="flex flex-col">
+        <SheetHeader className=" flex flex-row items-center justify-between mt-2">
+          <div className="flex gap-2 ">
+            <School size={30} />
+            <SheetTitle>E-Learning</SheetTitle>
+          </div>
+        </SheetHeader>
+        <nav className="flex flex-col space-y-4 mt-4 px-4">
+          <span>My Learning</span>
+          <span>Edit Profile</span>
+          <span>Logout</span>
+        </nav>
+        {role === "instructor" && (
+          <div className="flex flex-col">
+            <SheetFooter>
+              <SheetClose asChild>
+                <Button type="submit">Dashboard</Button>
+              </SheetClose>
+            </SheetFooter>
+          </div>
+        )}
+      </SheetContent>
+    </Sheet>
+  );
+};

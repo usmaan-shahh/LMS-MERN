@@ -10,11 +10,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useLoginUserMutation } from "@/apiSlice/authApi";
 import { useRegisterUserMutation } from "@/apiSlice/authApi";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -33,7 +34,7 @@ export function Login() {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginUserMutation();
-
+  const navigate = useNavigate();
   const [
     registerUser,
     {
@@ -74,6 +75,7 @@ export function Login() {
     }
     if (loginIsSuccess && logindata) {
       toast.success("User logged in successfully");
+      navigate("/");
     }
     if (registerError) {
       toast.error(registerError.data.message);
@@ -101,6 +103,7 @@ export function Login() {
           <Card>
             <CardHeader>
               <CardTitle>SignUp</CardTitle>
+
               <CardDescription>
                 Enter the detail's below to create an account and click signup
                 to continue.

@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import Courses from "@/pages/student/Courses";
 import React from "react";
 import { Outlet } from "react-router-dom";
 
@@ -8,6 +9,7 @@ const MainLayout = () => {
       <Navbar />
       <div>
         <Outlet />
+        <Courses />
       </div>
     </div>
   );

@@ -19,12 +19,31 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 export function Login() {
+  {
+    /* If Path is /login the login tab gets active and if path is /signup the signup tab gets active */
+  }
   const navigate = useNavigate();
-
+  const [tab, setTab] = useState("signup");
   const location = useLocation();
 
-  const [tab, setTab] = useState("signup");
+  useEffect(() => {
+    console.log("Current path is:", location.pathname);
+    if (location.pathname === "/login") {
+      setTab("login");
+    } else if (location.pathname === "/signup") {
+      setTab("signup");
+    }
+  }, [location.pathname]);
 
+  const handleTabChange = (value) => {
+    setTab(value);
+    navigate(`/${value}`);
+  };
+  {
+    /* code ends here */
+  }
+
+  
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [signupData, setSignupData] = useState({
     name: "",
@@ -51,19 +70,6 @@ export function Login() {
       isSuccess: registerIsSuccess,
     },
   ] = useRegisterUserMutation();
-
-  useEffect(() => {
-    if (location.pathname === "/login") {
-      setTab("login");
-    } else if (location.pathname === "/signup") {
-      setTab("signup");
-    }
-  }, [location.pathname]);
-
-  const handleTabChange = (value) => {
-    setTab(value);
-    navigate(`/${value}`);
-  };
 
   const inputHandler = (event, type) => {
     const { name, value } = event.target;

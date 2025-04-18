@@ -18,7 +18,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-export function Login() {
+export function LoginSignup() {
   {
     /* If Path is /login the login tab gets active and if path is /signup the signup tab gets active */
   }
@@ -229,7 +229,7 @@ export function Login() {
             </CardContent>
             <CardFooter className="pt-2">
               <Button
-                disabled={loginIsLoading}
+                disabled={loginUserIsLoading}
                 onClick={() => buttonHandler("login")}
                 className="w-full h-11 font-medium"
               >
@@ -249,4 +249,4 @@ export function Login() {
     </div>
   );
 }
-export default Login;
+export default LoginSignup;

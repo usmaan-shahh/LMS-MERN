@@ -53,12 +53,11 @@ export const Navbar = () => {
             </DropdownMenu>
           ) : (
             <div className="flex items-center gap-5">
-              <Link to="/login">
-                <Button variant="outline">Login</Button>
-              </Link>
-
               <Link to="/signup">
                 <Button>Sign-Up</Button>
+              </Link>
+              <Link to="/login">
+                <Button variant="outline">Login</Button>
               </Link>
             </div>
           )}

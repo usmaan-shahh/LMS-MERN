@@ -20,7 +20,9 @@ import { useLocation } from "react-router-dom";
 
 export function Login() {
   const navigate = useNavigate();
+
   const location = useLocation();
+
   const [tab, setTab] = useState("signup");
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });

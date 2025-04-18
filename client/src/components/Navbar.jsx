@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sheet";
 
 export const Navbar = () => {
-  const user = true;
+  const user = false;
   return (
     <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       {/* Desktop */}
@@ -72,7 +72,7 @@ export const Navbar = () => {
 };
 
 const MobileNavbar = () => {
-  const role = "i";
+  const role = "student";
   return (
     <Sheet>
       <SheetTrigger asChild>

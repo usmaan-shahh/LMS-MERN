@@ -10,14 +10,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "@/apiSlice/authApi";
 import { useRegisterUserMutation } from "@/apiSlice/authApi";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [tab, setTab] = useState("signup");
+
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [signupData, setSignupData] = useState({
     name: "",
@@ -34,7 +39,6 @@ export function Login() {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginUserMutation();
-  const navigate = useNavigate();
   const [
     registerUser,
     {
@@ -44,6 +48,19 @@ export function Login() {
       isSuccess: registerIsSuccess,
     },
   ] = useRegisterUserMutation();
+
+  useEffect(() => {
+    if (location.pathname === "/login") {
+      setTab("login");
+    } else if (location.pathname === "/signup") {
+      setTab("signup");
+    }
+  }, [location.pathname]);
+
+  const handleTabChange = (value) => {
+    setTab(value);
+    navigate(`/${value}`);
+  };
 
   const inputHandler = (event, type) => {
     const { name, value } = event.target;
@@ -93,115 +110,128 @@ export function Login() {
   ]);
 
   return (
-    <div className="flex  items-center justify-center h-screen bg-gray-100">
-      <Tabs defaultValue="signup" className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2 border b-2 border-b-slate-200">
-          <TabsTrigger value="signup">SignUp</TabsTrigger>
+    <div className="flex items-center justify-center h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      <Tabs value={tab} onValueChange={handleTabChange} className="w-[450px]">
+        <TabsList className="grid w-full grid-cols-2 mb-4 shadow-sm">
+          <TabsTrigger value="signup">Sign Up</TabsTrigger>
           <TabsTrigger value="login">Login</TabsTrigger>
         </TabsList>
         <TabsContent value="signup">
-          <Card>
-            <CardHeader>
-              <CardTitle>SignUp</CardTitle>
-
-              <CardDescription>
-                Enter the detail's below to create an account and click signup
-                to continue.
+          <Card className="min-h-[400px] flex flex-col shadow-md">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-2xl font-semibold text-gray-800">
+                Sign Up
+              </CardTitle>
+              <CardDescription className="text-gray-600">
+                Create an account to get started with our learning platform.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label>Name</Label>
+            <CardContent className="space-y-4 flex-grow pt-4">
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Full Name</Label>
                 <Input
                   name="name"
                   type="text"
                   required={true}
                   value={signupData.name}
                   onChange={handleSignupTabChange}
+                  className="h-10"
+                  placeholder="John Doe"
                 />
               </div>
-              <div className="space-y-1">
-                <Label>Email</Label>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Email Address</Label>
                 <Input
                   type="email"
                   name="email"
                   required={true}
                   value={signupData.email}
                   onChange={handleSignupTabChange}
+                  className="h-10"
+                  placeholder="john@example.com"
                 />
               </div>
-              <div className="space-y-1">
-                <Label>Password</Label>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Password</Label>
                 <Input
                   type="password"
                   name="password"
                   required={true}
                   value={signupData.password}
                   onChange={handleSignupTabChange}
+                  className="h-10"
+                  placeholder="••••••••"
                 />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="pt-2">
               <Button
                 disabled={registerIsLoading}
                 onClick={() => buttonHandler("sign-up")}
+                className="w-full h-11 font-medium"
               >
                 {registerIsLoading ? (
                   <>
-                    <Loader2 className=" mr-2 h-4 w-4 animate-spin" />
-                    please wait...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating Account...
                   </>
                 ) : (
-                  "Signup"
+                  "Create Account"
                 )}
               </Button>
             </CardFooter>
           </Card>
         </TabsContent>
         <TabsContent value="login">
-          <Card>
-            <CardHeader>
-              <CardTitle>Login</CardTitle>
-              <CardDescription>
-                Login to your account and click login to continue.
+          <Card className="min-h-[400px] flex flex-col shadow-md">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-2xl font-semibold text-gray-800">
+                Welcome Back
+              </CardTitle>
+              <CardDescription className="text-gray-600">
+                Sign in to your account to continue learning.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label>email</Label>
+            <CardContent className="space-y-4 flex-grow pt-4">
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Email Address</Label>
                 <Input
                   type="email"
-                  placeholder="Ex. usman@gmail.com"
+                  placeholder="john@example.com"
                   required={true}
                   onChange={handleLoginTabChange}
                   name="email"
                   value={loginData.email}
+                  className="h-10"
                 />
               </div>
 
-              <div className="space-y-1">
-                <Label>Password</Label>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Password</Label>
                 <Input
                   type="password"
                   required={true}
                   onChange={handleLoginTabChange}
                   value={loginData.password}
                   name="password"
+                  className="h-10"
+                  placeholder="••••••••"
                 />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="pt-2">
               <Button
                 disabled={loginIsLoading}
                 onClick={() => buttonHandler("login")}
+                className="w-full h-11 font-medium"
               >
                 {loginIsLoading ? (
                   <>
-                    <Loader2 className=" mr-2 h-4 w-4 animate-spin" />
-                    please wait...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Signing In...
                   </>
                 ) : (
-                  "Login"
+                  "Sign In"
                 )}
               </Button>
             </CardFooter>

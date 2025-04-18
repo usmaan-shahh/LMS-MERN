@@ -19,6 +19,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const user = false;
@@ -52,8 +53,13 @@ export const Navbar = () => {
             </DropdownMenu>
           ) : (
             <div className="flex items-center gap-5">
-              <Button variant="outline">Login</Button>
-              <Button>Sign-Up</Button>
+              <Link to="/login">
+                <Button variant="outline">Login</Button>
+              </Link>
+
+              <Link to="/signup">
+                <Button>Sign-Up</Button>
+              </Link>
             </div>
           )}
         </div>

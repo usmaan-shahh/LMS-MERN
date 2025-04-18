@@ -3,8 +3,8 @@ import React from "react";
 import Course from "./Course";
 
 const Courses = () => {
-  const isLoading = false;
-  const courses = [1, 2, 3, 4, 5, 6, 7, 8];
+  const isLoading = true;
+  const courses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
     <div className="bg-gray-50 dark:bg-[#141414]">

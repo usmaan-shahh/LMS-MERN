@@ -120,9 +120,19 @@ export function LoginSignup() {
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <Tabs value={tab} onValueChange={handleTabChange} className="w-[450px]">
-        <TabsList className="grid w-full grid-cols-2 mb-4 shadow-sm">
-          <TabsTrigger value="signup">Sign Up</TabsTrigger>
-          <TabsTrigger value="login">Login</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 mb-6 shadow-md rounded-lg overflow-hidden border border-gray-200 h-14">
+          <TabsTrigger 
+            value="signup" 
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground py-3 font-medium transition-all text-sm"
+          >
+            Sign Up
+          </TabsTrigger>
+          <TabsTrigger 
+            value="login" 
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground py-3 font-medium transition-all text-sm"
+          >
+            Login
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="signup">
           <Card className="min-h-[400px] flex flex-col shadow-md">

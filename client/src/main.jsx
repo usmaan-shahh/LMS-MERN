@@ -8,7 +8,7 @@ import { router } from "./router.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <Toaster />
     <RouterProvider router={router} />
+    <Toaster />
   </Provider>
 );

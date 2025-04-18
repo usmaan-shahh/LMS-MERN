@@ -1,4 +1,6 @@
 import { Menu, School } from "lucide-react";
+import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import React from "react";
 import {
   DropdownMenu,
@@ -8,9 +10,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import {
   Sheet,
   SheetClose,
@@ -20,11 +19,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 
-const Navbar = () => {
+export const Navbar = () => {
   const user = true;
-
   return (
     <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       {/* Desktop */}
@@ -74,11 +71,8 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
-
 const MobileNavbar = () => {
-  const role = "instructor";
-
+  const role = "i";
   return (
     <Sheet>
       <SheetTrigger asChild>

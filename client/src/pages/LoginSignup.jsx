@@ -95,6 +95,7 @@ export function LoginSignup() {
   };
 
   useEffect(() => {
+    console.log(loginUserData);
     if (registerUserData && registerUserIsSuccess) {
       toast.success("User registered successfully");
     }

@@ -95,7 +95,7 @@ export function LoginSignup() {
   };
 
   useEffect(() => {
-    if (registerUserData && registerIsSuccess) {
+    if (registerUserData && registerUserIsSuccess) {
       toast.success("User registered successfully");
     }
     if (loginUserIsSuccess && loginUserData) {
@@ -121,14 +121,14 @@ export function LoginSignup() {
     <div className="flex items-center justify-center h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <Tabs value={tab} onValueChange={handleTabChange} className="w-[450px]">
         <TabsList className="grid w-full grid-cols-2 mb-6 shadow-md rounded-lg overflow-hidden border border-gray-200 h-14">
-          <TabsTrigger 
-            value="signup" 
+          <TabsTrigger
+            value="signup"
             className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground py-3 font-medium transition-all text-sm"
           >
             Sign Up
           </TabsTrigger>
-          <TabsTrigger 
-            value="login" 
+          <TabsTrigger
+            value="login"
             className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground py-3 font-medium transition-all text-sm"
           >
             Login

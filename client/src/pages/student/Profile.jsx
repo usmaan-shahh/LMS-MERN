@@ -16,7 +16,7 @@ import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Loader2 } from "lucide-react";
 
 const Profile = () => {
-  const isLoading = true;
+  const isLoading = false;
   return (
     <div className="max-w-4xl mx-auto px-4 my-25">
       <h1 className="font-bold text-2xl text-center md:text-left">PROFILE</h1>

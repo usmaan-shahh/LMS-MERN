@@ -24,7 +24,6 @@ export const router = createBrowserRouter(
           </>
         }
       />
-
       <Route path="login" element={<LoginSignup />} />
       <Route path="signup" element={<LoginSignup />} />
       <Route path="mylearning" element={<MyLearning />} />

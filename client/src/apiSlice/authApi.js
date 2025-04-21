@@ -17,6 +17,13 @@ const authApi = createApi({
       }),
     }),
 
+    logoutUser: builder.mutation({
+      query: () => ({
+        url: "logout",
+        method: "POST",
+      }),
+    }),
+
     registerUser: builder.mutation({
       query: (inputData) => ({
         url: "register",
@@ -33,12 +40,6 @@ const authApi = createApi({
           console.error("Error logging in user:", error);
         }
       },
-      logoutUser: builder.mutation({
-        query: () => ({
-          url: "logout",
-          method: "POST",
-        }),
-      }),
     }),
   }),
 });

@@ -68,7 +68,7 @@ export const login = async (req, res) => {
     });
 
     // Set token as an HTTP-only cookie
-    res.cookie("authToken", token, {
+    res.cookie("Token", token, {
       // "token" is the name of the cookie.
       // token is the value stored inside the cookie (usually a JWT token).
       httpOnly: true, // Prevent client-side access to the cookie

@@ -91,9 +91,7 @@ export function LoginSignup() {
     //X is either "sign-up" or "login"
     const inputData = X === "sign-up" ? signupData : loginData;
     const action = X === "sign-up" ? registerUser : loginUser;
-
     await action(inputData);
-    console.log(inputData);
   };
 
   useEffect(() => {

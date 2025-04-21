@@ -18,10 +18,15 @@ import Course from "./Course";
 import { useFetchUserProfileQuery } from "@/apiSlice/authApi";
 
 const Profile = () => {
-  const { data } = useFetchUserProfileQuery();
-  console.log(data);
+  const { data, isLoading } = useFetchUserProfileQuery();
 
-  const isLoading = false;
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const { user } = data;
+
+  const x = false;
   const enrolledCourses = [1, 2, 3, 4, 5, 6]; // Mock data for enrolled courses
   return (
     <div className="max-w-4xl mx-auto px-4 my-25">
@@ -38,7 +43,7 @@ const Profile = () => {
             <h1 className="font-semibold text-gray-900 dark:text-gray-100 ">
               Name:
               <span className="font-normal text-gray-700 dark:text-gray-300 ml-2">
-                usman
+                {user.name}
               </span>
             </h1>
           </div>
@@ -46,7 +51,7 @@ const Profile = () => {
             <h1 className="font-semibold text-gray-900 dark:text-gray-100 ">
               Email:
               <span className="font-normal text-gray-700 dark:text-gray-300 ml-2">
-                xxx@gmail.com
+                {user.email}
               </span>
             </h1>
           </div>
@@ -54,7 +59,7 @@ const Profile = () => {
             <h1 className="font-semibold text-gray-900 dark:text-gray-100 ">
               Role:
               <span className="font-normal text-gray-700 dark:text-gray-300 ml-2">
-                Instructor
+                {user.role}
               </span>
             </h1>
           </div>
@@ -87,8 +92,8 @@ const Profile = () => {
                 </div>
               </div>
               <DialogFooter>
-                <Button disabled={isLoading} type="submit">
-                  {isLoading ? (
+                <Button disabled={x} type="submit">
+                  {x ? (
                     <Loader2 className="animate-spin">Please Wait...</Loader2>
                   ) : (
                     "Save changes"

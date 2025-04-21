@@ -2,6 +2,8 @@ import React from "react";
 import { Menu, School } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useLogoutUserMutation } from "@/apiSlice/authApi";
+
 import { Link } from "react-router-dom";
 import {
   DropdownMenu,
@@ -20,8 +22,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
+import { useNavigate } from "react-router-dom";
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const [logoutUser] = useLogoutUserMutation();
+  const logoutHandler = async () => {
+    await logoutUser();
+    navigate("/login");
+  };
   const user = true;
   return (
     <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
@@ -52,7 +60,9 @@ export const Navbar = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Dashboard</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={logoutHandler}>
+                  Logout
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (

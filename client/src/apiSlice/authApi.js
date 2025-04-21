@@ -33,9 +33,19 @@ const authApi = createApi({
           console.error("Error logging in user:", error);
         }
       },
+      logoutUser: builder.mutation({
+        query: () => ({
+          url: "logout",
+          method: "POST",
+        }),
+      }),
     }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useLogoutUserMutation,
+} = authApi;
 export default authApi;

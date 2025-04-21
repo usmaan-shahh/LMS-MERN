@@ -18,7 +18,7 @@ import Course from "./Course";
 
 const Profile = () => {
   const isLoading = false;
-  const enrolledCourses = [];
+  const enrolledCourses = [1, 2, 3, 4, 5, 6]; // Mock data for enrolled courses
   return (
     <div className="max-w-4xl mx-auto px-4 my-25">
       <h1 className="font-bold text-2xl text-center md:text-left">PROFILE</h1>

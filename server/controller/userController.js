@@ -94,3 +94,27 @@ export const login = async (req, res) => {
   //  The secret key "your_secret_key" is used to sign (encrypt) the token.
   //  Payload → Contains user data (id, email).
 };
+
+export const logout = async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ success: true, message: "logged out successfully" });
+};
+
+export const fetchUserProfile = async (req, res) => {
+  try {
+    const userId = req.id;
+    const user = await User.findById(userId).select(
+      "-password -createdAt -updatedAt -__v"
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};

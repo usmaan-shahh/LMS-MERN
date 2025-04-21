@@ -15,8 +15,12 @@ import { Label } from "@/components/ui/label";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Loader2 } from "lucide-react";
 import Course from "./Course";
+import { useFetchUserProfileQuery } from "@/apiSlice/authApi";
 
 const Profile = () => {
+  const { data } = useFetchUserProfileQuery();
+  console.log(data);
+
   const isLoading = false;
   const enrolledCourses = [1, 2, 3, 4, 5, 6]; // Mock data for enrolled courses
   return (

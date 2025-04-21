@@ -24,6 +24,13 @@ const authApi = createApi({
       }),
     }),
 
+    fetchUserProfile: builder.query({
+      query: () => ({
+        url: "profile",
+        method: "GET",
+      }),
+    }),
+
     registerUser: builder.mutation({
       query: (inputData) => ({
         url: "register",
@@ -48,5 +55,6 @@ export const {
   useLoginUserMutation,
   useRegisterUserMutation,
   useLogoutUserMutation,
+  useFetchUserProfileQuery,
 } = authApi;
 export default authApi;

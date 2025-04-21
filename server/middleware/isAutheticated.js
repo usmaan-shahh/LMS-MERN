@@ -11,7 +11,8 @@ const isAuthenticated = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.id = decoded;
+    req.id = decoded.id;
+
     next();
   } catch (error) {
     console.error("JWT verification error:", error.message);

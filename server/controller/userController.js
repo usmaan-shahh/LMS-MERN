@@ -103,6 +103,7 @@ export const logout = async (req, res) => {
 export const fetchUserProfile = async (req, res) => {
   try {
     const userId = req.id;
+
     const user = await User.findById(userId).select(
       "-password -createdAt -updatedAt -__v"
     );

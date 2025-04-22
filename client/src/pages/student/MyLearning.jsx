@@ -1,20 +1,31 @@
 import React from "react";
 import Course from "./Course";
+import { useFetchUserProfileQuery } from "@/apiSlice/authApi";
+
 const MyLearning = () => {
-  const isLoading = true;
-  const myLearning = [];
+  const { data, isLoading } = useFetchUserProfileQuery();
+
+  if (isLoading) {
+    return (
+      <div className="max-w-4xl mx-auto my-20 px-4 md:px-0">
+        <h1 className="font-bold text-2xl">MY LEARNING</h1>
+        <MyLearningSkeleton />
+      </div>
+    );
+  }
+
+  const enrolledCourses = data?.user?.enrolledCourses ?? [];
+
   return (
     <div className="max-w-4xl mx-auto my-20 px-4 md:px-0">
       <h1 className="font-bold text-2xl">MY LEARNING</h1>
       <div className="my-5">
-        {isLoading ? (
-          <MyLearningSkeleton />
-        ) : myLearning.length === 0 ? (
+        {enrolledCourses.length === 0 ? (
           <p>You are not enrolled in any course.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {myLearning.map((course, index) => (
-              <Course key={index} course={course} />
+            {enrolledCourses.map((course, index) => (
+              <Course course={course} key={course._id} />
             ))}
           </div>
         )}
@@ -25,7 +36,7 @@ const MyLearning = () => {
 
 export default MyLearning;
 
-// Skeleton component for loading state
+// Skeleton component
 const MyLearningSkeleton = () => (
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
     {[...Array(3)].map((_, index) => (

@@ -21,13 +21,19 @@ const Profile = () => {
   const { data, isLoading } = useFetchUserProfileQuery();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <h1 className="font-bold text-2xl text-center my-20">
+        Loading Profile...
+      </h1>
+    );
   }
 
   const { user } = data;
 
+  const enrolledCourses = data?.user?.enrolledCourses ?? [];
+
   const x = false;
-  const enrolledCourses = [1, 2, 3, 4, 5, 6]; // Mock data for enrolled courses
+
   return (
     <div className="max-w-4xl mx-auto px-4 my-25">
       <h1 className="font-bold text-2xl text-center md:text-left">PROFILE</h1>
@@ -107,12 +113,12 @@ const Profile = () => {
       <div>
         <h1 className="font-medium text-lg">Courses you're enrolled in</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-5">
-          {isLoading ? (
-            <div className="flex justify-center items-center h-40 animate-pulse bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
-          ) : enrolledCourses.length === 0 ? (
+          {enrolledCourses.length === 0 ? (
             <p>You are not enrolled in any course.</p>
           ) : (
-            enrolledCourses.map((course, index) => <Course key={index} />)
+            enrolledCourses.map((course, index) => (
+              <Course course={course} key={course._id} />
+            ))
           )}
         </div>
       </div>

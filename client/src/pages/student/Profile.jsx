@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,9 +24,11 @@ import { toast } from "sonner";
 const Profile = () => {
   const [name, setName] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
-  const { data, isLoading } = useFetchUserProfileQuery();
+
+  const { data: fetchedData, isLoading } = useFetchUserProfileQuery();
+  console.log(fetchedData, "fetchedData");
   const [
-    updateUser,
+    updateProfile,
     {
       data: updatedUserData,
       isLoading: updatedUserIsLoading,
@@ -43,28 +45,21 @@ const Profile = () => {
     );
   }
 
-  const { user } = data;
+  const { user } = fetchedData;
 
   const updateUserHandler = async (e) => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("profilePhoto", profilePhoto);
-    console.log("formData", formData);
-    await updateUser(formData);
+
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
+    await updateProfile(formData);
   };
 
-  useEffect(() => {
-    if (updatedUserIsSuccess) {
-      toast.success("Profile updated successfully");
-    }
-    if (updatedUserIsError) {
-      toast.error("Error updating profile");
-    }
-  }, [updatedUserIsSuccess, updatedUserIsError]);
-
-  const enrolledCourses = data?.user?.enrolledCourses ?? [];
-
-  const x = false;
+  const enrolledCourses = fetchedData?.user?.enrolledCourses ?? [];
 
   const onChangeHandler = (e) => {
     const file = e.target.files[0];
@@ -144,8 +139,12 @@ const Profile = () => {
                 </div>
               </div>
               <DialogFooter>
-                <Button disabled={x} type="submit" onClick={updateUserHandler}>
-                  {x ? (
+                <Button
+                  disabled={updatedUserIsLoading}
+                  type="submit"
+                  onClick={updateUserHandler}
+                >
+                  {updatedUserIsLoading ? (
                     <Loader2 className="animate-spin">Please Wait...</Loader2>
                   ) : (
                     "Save changes"

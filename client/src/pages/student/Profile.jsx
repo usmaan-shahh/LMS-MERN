@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,8 +18,21 @@ import Course from "./Course";
 import { useFetchUserProfileQuery } from "@/apiSlice/authApi";
 
 const Profile = () => {
-  const { data, isLoading } = useFetchUserProfileQuery();
+  const [name, setName] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
 
+  const onChangeHandler = (e) => {
+    e.preventDefault(); 
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePhoto(file);
+    }
+  };
+  const { data, isLoading } = useFetchUserProfileQuery();
+  const [
+    updateUser,
+    { data: updatedUserData, isLoading: updatedUsesIsLoading },
+  ] = useUpdateUserProfileMutation();
   if (isLoading) {
     return (
       <h1 className="font-bold text-2xl text-center my-20">
@@ -89,16 +102,23 @@ const Profile = () => {
                   <Input
                     type="text"
                     placeholder="Name"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
                     className="col-span-3"
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label>Profile Photo</Label>
-                  <Input type="file" accept="image/*" className="col-span-3" />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={updateUserHandler}
+                    className="col-span-3"
+                  />
                 </div>
               </div>
               <DialogFooter>
-                <Button disabled={x} type="submit">
+                <Button disabled={x} type="submit" onClick={updateUserHandler}>
                   {x ? (
                     <Loader2 className="animate-spin">Please Wait...</Loader2>
                   ) : (

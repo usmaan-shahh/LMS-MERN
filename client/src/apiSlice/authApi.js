@@ -6,7 +6,7 @@ const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8080/api/v1/user/",
     credentials: "include", //“Include cookies with this request, even though it’s going to a different domain/port.”
-    }),
+  }),
 
   endpoints: (builder) => ({
     loginUser: builder.mutation({
@@ -28,6 +28,14 @@ const authApi = createApi({
       query: () => ({
         url: "profile",
         method: "GET",
+      }),
+    }),
+
+    updateUserProfile: builder.mutation({
+      query: (inputData) => ({
+        url: "update/profile",
+        method: "PUT",
+        body: inputData,
       }),
     }),
 
@@ -56,5 +64,6 @@ export const {
   useRegisterUserMutation,
   useLogoutUserMutation,
   useFetchUserProfileQuery,
+  useUpdateUserProfileMutation,
 } = authApi;
 export default authApi;

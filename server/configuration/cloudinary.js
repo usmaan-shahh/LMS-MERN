@@ -1,41 +1,33 @@
 import { v2 as cloudinary } from "cloudinary";
 
-(async function () {
-  cloudinary.config({
-    CLOUD_NAME: process.env.CLOUD_NAME,
-    API_KEY: process.env.API_KEY,
-    API_SECRET: process.env.API_SECRET,
-  });
+cloudinary.config({
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+  cloud_name: process.env.CLOUD_NAME,
+});
 
-  // Upload an image
-  const uploadResult = await cloudinary.uploader
-    .upload(
-      "https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg",
-      {
-        public_id: "shoes",
-      }
-    )
-    .catch((error) => {
-      console.log(error);
+export const uploadMedia = async (file) => {
+  try {
+    const uploadResponse = await cloudinary.uploader.upload(file, {
+      resource_type: "auto",
     });
+    return uploadResponse;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const deleteMediaFromCloudinary = async (publicId) => {
+  try {
+    await cloudinary.uploader.destroy(publicId);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  console.log(uploadResult);
-
-  // Optimize delivery by resizing and applying auto-format and auto-quality
-  const optimizeUrl = cloudinary.url("shoes", {
-    fetch_format: "auto",
-    quality: "auto",
-  });
-
-  console.log(optimizeUrl);
-
-  // Transform the image: auto-crop to square aspect_ratio
-  const autoCropUrl = cloudinary.url("shoes", {
-    crop: "auto",
-    gravity: "auto",
-    width: 500,
-    height: 500,
-  });
-
-  console.log(autoCropUrl);
-})();
+export const deleteVideoFromCloudinary = async (publicId) => {
+  try {
+    await cloudinary.uploader.destroy(publicId, { resource_type: "video" });
+  } catch (error) {
+    console.log(error);
+  }
+};

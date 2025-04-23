@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,24 +15,26 @@ import { Label } from "@/components/ui/label";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Loader2 } from "lucide-react";
 import Course from "./Course";
-import { useFetchUserProfileQuery } from "@/apiSlice/authApi";
+import {
+  useFetchUserProfileQuery,
+  useUpdateProfileMutation,
+} from "@/apiSlice/authApi";
+import { toast } from "sonner";
 
 const Profile = () => {
   const [name, setName] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
-
-  const onChangeHandler = (e) => {
-    e.preventDefault(); 
-    const file = e.target.files[0];
-    if (file) {
-      setProfilePhoto(file);
-    }
-  };
   const { data, isLoading } = useFetchUserProfileQuery();
   const [
     updateUser,
-    { data: updatedUserData, isLoading: updatedUsesIsLoading },
-  ] = useUpdateUserProfileMutation();
+    {
+      data: updatedUserData,
+      isLoading: updatedUserIsLoading,
+      isSuccess: updatedUserIsSuccess,
+      isError: updatedUserIsError,
+    },
+  ] = useUpdateProfileMutation();
+
   if (isLoading) {
     return (
       <h1 className="font-bold text-2xl text-center my-20">
@@ -43,9 +45,33 @@ const Profile = () => {
 
   const { user } = data;
 
+  const updateUserHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("profilePhoto", profilePhoto);
+    console.log("formData", formData);
+    await updateUser(formData);
+  };
+
+  useEffect(() => {
+    if (updatedUserIsSuccess) {
+      toast.success("Profile updated successfully");
+    }
+    if (updatedUserIsError) {
+      toast.error("Error updating profile");
+    }
+  }, [updatedUserIsSuccess, updatedUserIsError]);
+
   const enrolledCourses = data?.user?.enrolledCourses ?? [];
 
   const x = false;
+
+  const onChangeHandler = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePhoto(file);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 my-25">
@@ -112,7 +138,7 @@ const Profile = () => {
                   <Input
                     type="file"
                     accept="image/*"
-                    onChange={updateUserHandler}
+                    onChange={onChangeHandler}
                     className="col-span-3"
                   />
                 </div>

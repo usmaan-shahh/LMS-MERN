@@ -80,7 +80,10 @@ export const login = async (req, res) => {
     });
 
     // Send success response
-    res.status(200).json({
+    res.json({
+      /* Status: 200 OK (default)
+        Content-Type: application/json
+        Sends your object as JSON*/
       success: true,
       message: "Logged in successfully",
     });

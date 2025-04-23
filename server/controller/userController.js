@@ -124,3 +124,29 @@ export const fetchUserProfile = async (req, res) => {
     });
   }
 };
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const userId = req.id;
+    const { name } = req.body;
+    const profilePhoto = req.file;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found", success: false });
+    }
+    const updatedData = {
+      name,
+      profilePhoto,
+    };
+
+    res.status(200).json({ success: true, updatedUser });
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};

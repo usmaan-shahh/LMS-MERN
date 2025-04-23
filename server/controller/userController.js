@@ -106,12 +106,14 @@ export const logout = async (req, res) => {
 export const fetchUserProfile = async (req, res) => {
   try {
     const userId = req.id;
-
     const user = await User.findById(userId).select(
+      // .select() to exclude sensitive or unnecessary fields
       "-password -createdAt -updatedAt -__v"
     );
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(404)
+        .json({ message: "Profile not found", success: false });
     }
     res.status(200).json({ success: true, user });
   } catch (error) {

@@ -24,12 +24,33 @@ import { toast } from "sonner";
 const Profile = () => {
   const [name, setName] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
-
   const { data: fetchedUserDetails, isLoading: fetchingUserDetails } =
     useFetchUserProfileQuery();
-
   const [updateProfile, { data, isLoading, isSuccess, isError }] =
     useUpdateProfileMutation();
+
+  const updateUserHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("profilePhoto", profilePhoto);
+    await updateProfile(formData);
+  };
+
+  const onChangeHandler = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePhoto(file);
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess && data?.message) {
+      toast.success(data.message);
+    }
+    if (isError) {
+      toast.error(data?.message || "Failed to update profile");
+    }
+  }, [isSuccess, isError, data?.message]);
 
   if (fetchingUserDetails) {
     return (
@@ -40,25 +61,7 @@ const Profile = () => {
   }
 
   const { user } = fetchedUserDetails;
-
-  const updateUserHandler = async (e) => {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("profilePhoto", profilePhoto);
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
-    await updateProfile(formData);
-  };
-
   const enrolledCourses = fetchedUserDetails?.user?.enrolledCourses ?? [];
-
-  const onChangeHandler = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfilePhoto(file);
-    }
-  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 my-25">

@@ -24,6 +24,7 @@ import { toast } from "sonner";
 const Profile = () => {
   const [name, setName] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { data: fetchedUserDetails, isLoading: fetchingUserDetails } =
     useFetchUserProfileQuery();
   const [updateProfile, { data, isLoading, isSuccess, isError }] =
@@ -46,6 +47,7 @@ const Profile = () => {
   useEffect(() => {
     if (isSuccess && data?.message) {
       toast.success(data.message);
+      setIsDialogOpen(false);
     }
     if (isError) {
       toast.error(data?.message || "Failed to update profile");
@@ -98,7 +100,7 @@ const Profile = () => {
               </span>
             </h1>
           </div>
-          <Dialog>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button size="sm" className="mt-2">
                 Edit Profile

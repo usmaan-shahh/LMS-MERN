@@ -1,4 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
+import dotenv from "dotenv";
+dotenv.config();
 
 cloudinary.config({
   api_key: process.env.API_KEY,
@@ -16,6 +18,7 @@ export const uploadMedia = async (file) => {
     console.log(error);
   }
 };
+
 export const deleteMediaFromCloudinary = async (publicId) => {
   try {
     await cloudinary.uploader.destroy(publicId);

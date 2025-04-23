@@ -25,19 +25,13 @@ const Profile = () => {
   const [name, setName] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("");
 
-  const { data: fetchedData, isLoading } = useFetchUserProfileQuery();
-  console.log(fetchedData, "fetchedData");
-  const [
-    updateProfile,
-    {
-      data: updatedUserData,
-      isLoading: updatedUserIsLoading,
-      isSuccess: updatedUserIsSuccess,
-      isError: updatedUserIsError,
-    },
-  ] = useUpdateProfileMutation();
+  const { data: fetchedUserDetails, isLoading: fetchingUserDetails } =
+    useFetchUserProfileQuery();
 
-  if (isLoading) {
+  const [updateProfile, { data, isLoading, isSuccess, isError }] =
+    useUpdateProfileMutation();
+
+  if (fetchingUserDetails) {
     return (
       <h1 className="font-bold text-2xl text-center my-20">
         Loading Profile...
@@ -45,21 +39,19 @@ const Profile = () => {
     );
   }
 
-  const { user } = fetchedData;
+  const { user } = fetchedUserDetails;
 
   const updateUserHandler = async (e) => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("profilePhoto", profilePhoto);
-
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
     await updateProfile(formData);
   };
 
-  const enrolledCourses = fetchedData?.user?.enrolledCourses ?? [];
+  const enrolledCourses = fetchedUserDetails?.user?.enrolledCourses ?? [];
 
   const onChangeHandler = (e) => {
     const file = e.target.files[0];
@@ -140,11 +132,11 @@ const Profile = () => {
               </div>
               <DialogFooter>
                 <Button
-                  disabled={updatedUserIsLoading}
+                  disabled={isLoading}
                   type="submit"
                   onClick={updateUserHandler}
                 >
-                  {updatedUserIsLoading ? (
+                  {isLoading ? (
                     <Loader2 className="animate-spin">Please Wait...</Loader2>
                   ) : (
                     "Save changes"

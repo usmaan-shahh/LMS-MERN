@@ -1,6 +1,10 @@
 import { User } from "../models/User.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import {
+  deleteMediaFromCloudinary,
+  uploadMedia,
+} from "../configuration/cloudinary.js";
 
 export const register = async (request, response) => {
   const { name, email, password } = request.body; // Destructure the request body to get name, email, and password

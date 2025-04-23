@@ -5,8 +5,8 @@ const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8080/api/v1/user/",
-    credentials: "include",
-  }),
+    credentials: "include", //“Include cookies with this request, even though it’s going to a different domain/port.”
+    }),
 
   endpoints: (builder) => ({
     loginUser: builder.mutation({

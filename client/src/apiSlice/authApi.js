@@ -29,6 +29,15 @@ const authApi = createApi({
         url: "profile",
         method: "GET",
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const result = await queryFulfilled;
+
+          dispatch(userLoggedIn(result.data.user));
+        } catch (error) {
+          console.error("Error logging in user:", error);
+        }
+      },
     }),
 
     updateProfile: builder.mutation({
@@ -45,16 +54,6 @@ const authApi = createApi({
         method: "POST",
         body: inputData,
       }),
-
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const result = await queryFulfilled;
-          const { email, password } = result.data.newUser;
-          dispatch(userLoggedIn({ email, password }));
-        } catch (error) {
-          console.error("Error logging in user:", error);
-        }
-      },
     }),
   }),
 });

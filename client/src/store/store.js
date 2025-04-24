@@ -10,5 +10,10 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authApi.middleware),
 });
-
+const initializeApp = async () => {
+  await store.dispatch(
+    authApi.endpoints.fetchUserProfile.initiate({}, { forceRefetch: true })
+  );
+};
+initializeApp();
 export default store;

@@ -25,11 +25,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const Navbar = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [logoutUser] = useLogoutUserMutation();
   const logoutHandler = async () => {
     await logoutUser();
+
     navigate("/login");
   };
 
@@ -42,7 +43,7 @@ export const Navbar = () => {
           <h1 className="font-extrabold text-2xl">E-Learning</h1>
         </div>
         <div className="flex items-center gap-5">
-          {user ? (
+          {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>

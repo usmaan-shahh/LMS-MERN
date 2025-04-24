@@ -10,10 +10,18 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authApi.middleware),
 });
-const initializeApp = async () => {
-  await store.dispatch(
-    authApi.endpoints.fetchUserProfile.initiate({}, { forceRefetch: true })
-  );
+
+// Initialize authentication state
+const initializeAuth = async () => {
+  try {
+    const result = await store
+      .dispatch(authApi.endpoints.fetchUserProfile.initiate())
+      .unwrap();
+    return result;
+  } catch (error) {
+    console.error("Error initializing auth:", error);
+    return null;
+  }
 };
-initializeApp();
-export default store;
+
+export { store, initializeAuth };

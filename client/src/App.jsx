@@ -4,12 +4,10 @@ import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <main>
-        <Navbar />
-        <Login />
-      </main>
-    </ThemeProvider>
+    <main>
+      <Navbar />
+      <Login />
+    </main>
   );
 };
 

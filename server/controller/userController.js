@@ -90,6 +90,7 @@ export const login = async (req, res) => {
         Sends your object as JSON*/
       success: true,
       message: "Logged in successfully",
+      user,
     });
   } catch (error) {
     console.error("Login error:", error);
@@ -103,7 +104,11 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.clearCookie("Token");
+  res.clearCookie("Token", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "strict",
+  });
   res.status(200).json({ success: true, message: "logged out successfully" });
 };
 

@@ -14,6 +14,12 @@ const store = configureStore({
 // Initialize authentication state
 const initializeAuth = async () => {
   try {
+    // Check if session cookie exists
+    const hasSessionCookie = document.cookie.includes("connect.sid");
+    if (!hasSessionCookie) {
+      return null;
+    }
+
     const result = await store
       .dispatch(authApi.endpoints.fetchUserProfile.initiate())
       .unwrap();

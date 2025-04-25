@@ -14,10 +14,10 @@ const store = configureStore({
 // Initialize authentication state
 const initializeAuth = async () => {
   try {
-    // Check if session cookie exists
-    const hasSessionCookie = document.cookie.includes("connect.sid");
-    if (!hasSessionCookie) {
-      return null;
+    // Check for Token cookie before making the request
+    const hasTokenCookie = document.cookie.includes("Token");
+    if (!hasTokenCookie) {
+      return null; // Don't make API call if no token exists
     }
 
     const result = await store
